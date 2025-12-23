@@ -202,6 +202,12 @@ export default function App() {
               {syncStatus === "ready" && "• 同期OK"}
               {syncStatus === "error" && "• 同期エラー（キー/ポリシー確認）"}
             </div>
+            <input
+              className="input"
+              type="date"
+              value={state.tripStartISO}
+              onChange={(e) => setState((s) => ({ ...s, tripStartISO: e.target.value }))}
+            />
           </div>
 
           <div className="tripBox">
