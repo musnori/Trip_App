@@ -1,9 +1,9 @@
 // src/components/Schedule.jsx
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 
-const emptyRow = () => ({
+const emptyRow = (dateISO) => ({
   id: crypto.randomUUID(),
-  dateISO: new Date().toISOString().slice(0, 10),
+  dateISO: dateISO || new Date().toISOString().slice(0, 10),
   time: "09:00",
   category: "",
   title: "",
@@ -13,7 +13,19 @@ const emptyRow = () => ({
 });
 
 export default function Schedule({ state, setState }) {
-  const [draft, setDraft] = useState(() => emptyRow());
+  const [selectedDate, setSelectedDate] = useState(
+    () => state.tripStartISO || new Date().toISOString().slice(0, 10)
+  );
+  const [draft, setDraft] = useState(() => emptyRow(selectedDate));
+
+  useEffect(() => {
+    if (!state.tripStartISO) return;
+    setSelectedDate(state.tripStartISO);
+  }, [state.tripStartISO]);
+
+  useEffect(() => {
+    setDraft((prev) => ({ ...prev, dateISO: selectedDate }));
+  }, [selectedDate]);
 
   const sorted = useMemo(() => {
     return [...state.schedule].sort((a, b) => {
@@ -23,10 +35,14 @@ export default function Schedule({ state, setState }) {
     });
   }, [state.schedule]);
 
+  const filtered = useMemo(() => {
+    return sorted.filter((it) => (selectedDate ? it.dateISO === selectedDate : true));
+  }, [sorted, selectedDate]);
+
   function add() {
     if (!draft.title.trim()) return;
     setState((s) => ({ ...s, schedule: [...s.schedule, { ...draft, title: draft.title.trim() }] }));
-    setDraft(emptyRow());
+    setDraft(emptyRow(selectedDate));
   }
 
   function update(id, patch) {
@@ -52,9 +68,24 @@ export default function Schedule({ state, setState }) {
       <h2>予定（表で編集できる）</h2>
       <p className="muted">日付/時間/分類/内容/場所/メモを、そのまま書き換えOK。</p>
 
+      <div className="rowForm">
+        <label className="label">日付で絞り込み</label>
+        <input
+          className="input"
+          type="date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+        />
+      </div>
+
       {/* 追加フォーム */}
       <div className="rowForm">
-        <input className="input" type="date" value={draft.dateISO} onChange={(e) => setDraft((d) => ({ ...d, dateISO: e.target.value }))} />
+        <input
+          className="input"
+          type="date"
+          value={draft.dateISO}
+          onChange={(e) => setDraft((d) => ({ ...d, dateISO: e.target.value }))}
+        />
         <input className="input" type="time" value={draft.time} onChange={(e) => setDraft((d) => ({ ...d, time: e.target.value }))} />
         <input className="input" value={draft.category} onChange={(e) => setDraft((d) => ({ ...d, category: e.target.value }))} placeholder="分類（移動/食事…）" />
         <input className="input grow" value={draft.title} onChange={(e) => setDraft((d) => ({ ...d, title: e.target.value }))} placeholder="予定・内容" />
@@ -62,7 +93,7 @@ export default function Schedule({ state, setState }) {
       </div>
 
       <div className="table">
-        {sorted.map((it) => (
+        {filtered.map((it) => (
           <div key={it.id} className="tableRow">
             <button className={"check" + (it.done ? " on" : "")} onClick={() => toggle(it.id)}>
               {it.done ? "✓" : ""}
@@ -83,7 +114,9 @@ export default function Schedule({ state, setState }) {
           </div>
         ))}
 
-        {sorted.length === 0 && <p className="muted">まだ予定がないよ。上から追加してね。</p>}
+        {filtered.length === 0 && (
+          <p className="muted">この日に予定はまだないよ。上から追加してね。</p>
+        )}
       </div>
     </section>
   );

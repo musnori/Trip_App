@@ -97,7 +97,8 @@ export const defaultState = {
       category: "景色",
       title: "海、サンセット",
       location: "万座ビーチ",
-      notes: "https://www.google.com/gasearch?q=%E4%B8%87%E5%BA%A7%E3%83%93%E3%83%BC%E3%83%81&source=sh/x/gs/m2/5#ebo=0",
+      notes:
+        "https://www.google.com/gasearch?q=%E4%B8%87%E5%BA%A7%E3%83%93%E3%83%BC%E3%83%81&source=sh/x/gs/m2/5#ebo=0",
       done: false
     },
     {
@@ -108,7 +109,7 @@ export const defaultState = {
       title: "ディナー",
       location: "沖縄とんかつ食堂しまぶた屋 前兼久店",
       notes:
-        "★予約・タクシー移動 / 予約完了 / https://tabelog.com/okinawa/A4703/A470303/47011882/ / 098-923-1518",
+        "★予約・タクシー移動\nhttps://tabelog.com/okinawa/A4703/A470303/47011882/\n098-923-1518\n予約完了",
       done: false
     },
 
@@ -171,7 +172,7 @@ export const defaultState = {
       title: "ディナー",
       location: "ステーキハウス88 恩納店",
       notes:
-        "★予約・タクシー移動 / 予約完了 / https://tabelog.com/okinawa/A4703/A470303/47023826/ / 098-964-2988",
+        "★予約・タクシー移動\nhttps://tabelog.com/okinawa/A4703/A470303/47023826/\n098-964-2988\n予約完了",
       done: false
     },
 
