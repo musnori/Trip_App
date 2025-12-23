@@ -143,63 +143,80 @@ export default function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state, tripId]);
 
-  const heroStyle = {
-    backgroundImage: `url('/hero-bg.png')`
-  };
+  const tripRange = useMemo(() => {
+    const dates = state.schedule
+      .map((item) => item.dateISO)
+      .filter(Boolean)
+      .sort();
+    const start = dates[0] || state.tripStartISO;
+    const end = dates[dates.length - 1] || state.tripStartISO;
+    return { start, end };
+  }, [state.schedule, state.tripStartISO]);
 
   return (
     <div className="app">
-      <header className="hero" style={heroStyle}>
-        <div className="heroOverlay">
-          <div className="topRow">
-            <img className="appIcon" src="/app-icon.png" alt="app icon" />
-
-            <div className="titles">
-              <EditableText
-                value={state.appTitle}
-                placeholder="アプリ名"
-                onChange={(v) => setState((s) => ({ ...s, appTitle: v }))}
-                className="title"
-              />
-              <div className="subtitle">
-                <EditableText
-                  value={state.partnerA}
-                  placeholder="あなた"
-                  onChange={(v) => setState((s) => ({ ...s, partnerA: v }))}
-                  className="name"
-                />
-                <span className="heart">♡</span>
-                <EditableText
-                  value={state.partnerB}
-                  placeholder="彼女"
-                  onChange={(v) => setState((s) => ({ ...s, partnerB: v }))}
-                  className="name"
-                />
-              </div>
-
-              {/* 同期状態（任意表示） */}
-              <div style={{ marginTop: 6, fontSize: 12, opacity: 0.7 }}>
-                Trip ID: <b>{tripId}</b>{" "}
-                {syncStatus === "connecting" && "• 同期中…"}
-                {syncStatus === "ready" && "• 同期OK"}
-                {syncStatus === "error" && "• 同期エラー（キー/ポリシー確認）"}
-              </div>
+      <header className="hero">
+        <div className="heroBar">
+          <button className="iconButton" type="button" aria-label="戻る">
+            ←
+          </button>
+          <div className="heroTitleBlock">
+            <EditableText
+              value={state.appTitle}
+              placeholder="旅のタイトル"
+              onChange={(v) => setState((s) => ({ ...s, appTitle: v }))}
+              className="heroTitle"
+            />
+            <div className="heroDates">
+              {tripRange.start} - {tripRange.end}
+              <span className="heroZone">UTC+9</span>
             </div>
+          </div>
+          <button className="iconButton" type="button" aria-label="メッセージ">
+            💬
+          </button>
+        </div>
 
-            <div className="tripBox">
-              <label className="label">旅行開始日</label>
-              <input
-                className="input"
-                type="date"
-                value={state.tripStartISO}
-                onChange={(e) => setState((s) => ({ ...s, tripStartISO: e.target.value }))}
+        <div className="heroCard">
+          <div className="heroMeta">
+            <div className="heroNames">
+              <EditableText
+                value={state.partnerA}
+                placeholder="あなた"
+                onChange={(v) => setState((s) => ({ ...s, partnerA: v }))}
+                className="name"
               />
-              <div className="countdown">{countdown}</div>
+              <span className="heart">♡</span>
+              <EditableText
+                value={state.partnerB}
+                placeholder="彼女"
+                onChange={(v) => setState((s) => ({ ...s, partnerB: v }))}
+                className="name"
+              />
+            </div>
+            <div className="syncStatus">
+              Trip ID: <b>{tripId}</b>{" "}
+              {syncStatus === "connecting" && "• 同期中…"}
+              {syncStatus === "ready" && "• 同期OK"}
+              {syncStatus === "error" && "• 同期エラー（キー/ポリシー確認）"}
             </div>
           </div>
 
-          <Nav page={page} setPage={setPage} />
+          <div className="tripBox">
+            <div className="tripBoxHeader">
+              <label className="label">旅行開始日</label>
+              <span className="countdown">{countdown}</span>
+            </div>
+            <input
+              className="input"
+              type="date"
+              value={state.tripStartISO}
+              onChange={(e) => setState((s) => ({ ...s, tripStartISO: e.target.value }))}
+            />
+          </div>
         </div>
+
+        <Nav page={page} setPage={setPage} />
       </header>
 
       <main className="main">
@@ -264,6 +281,11 @@ export default function App() {
           Couple Trip • localStorage + Supabase同期（同じURLで同じデータ）
         </span>
       </footer>
+
+      <button className="fab" type="button" onClick={() => setPage("schedule")}
+        aria-label="予定を追加">
+        +
+      </button>
     </div>
   );
 }
