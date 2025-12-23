@@ -40,6 +40,17 @@ body{
 .heroTitleBlock{
   text-align: center;
 }
+.heroTitleRow{
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.heroIcon{
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  box-shadow: 0 6px 14px rgba(8, 24, 40, 0.25);
+}
 .heroTitle{
   font-size: 22px;
   font-weight: 700;

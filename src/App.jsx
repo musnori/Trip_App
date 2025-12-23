@@ -6,7 +6,6 @@ import EditableText from "./components/EditableText.jsx";
 import Schedule from "./components/Schedule.jsx";
 import Photos from "./components/Photos.jsx";
 import Memories from "./components/Memories.jsx";
-import DataPanel from "./components/DataPanel.jsx";
 import { fetchTrip, upsertTrip, subscribeTrip } from "./remoteStore.js";
 
 function msToCountdown(targetDate) {
@@ -161,12 +160,15 @@ export default function App() {
             ←
           </button>
           <div className="heroTitleBlock">
-            <EditableText
-              value={state.appTitle}
-              placeholder="旅のタイトル"
-              onChange={(v) => setState((s) => ({ ...s, appTitle: v }))}
-              className="heroTitle"
-            />
+            <div className="heroTitleRow">
+              <img className="heroIcon" src="/app-icon.png" alt="旅アイコン" />
+              <EditableText
+                value={state.appTitle}
+                placeholder="旅のタイトル"
+                onChange={(v) => setState((s) => ({ ...s, appTitle: v }))}
+                className="heroTitle"
+              />
+            </div>
             <div className="heroDates">
               {tripRange.start} - {tripRange.end}
               <span className="heroZone">UTC+9</span>
@@ -200,6 +202,12 @@ export default function App() {
               {syncStatus === "ready" && "• 同期OK"}
               {syncStatus === "error" && "• 同期エラー（キー/ポリシー確認）"}
             </div>
+            <input
+              className="input"
+              type="date"
+              value={state.tripStartISO}
+              onChange={(e) => setState((s) => ({ ...s, tripStartISO: e.target.value }))}
+            />
           </div>
 
           <div className="tripBox">
@@ -273,7 +281,6 @@ export default function App() {
         {page === "schedule" && <Schedule state={state} setState={setState} />}
         {page === "photos" && <Photos state={state} setState={setState} />}
         {page === "memories" && <Memories state={state} setState={setState} />}
-        {page === "data" && <DataPanel state={state} setState={setState} />}
       </main>
 
       <footer className="footer">
