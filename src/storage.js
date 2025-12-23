@@ -2,7 +2,7 @@
 const KEY = "couple_trip_state_v2";
 
 export const defaultState = {
-  appTitle: "ふたりの旅",
+  appTitle: "沖縄旅行",
   partnerA: "Yasunori",
   partnerB: "Partner",
   tripStartISO: "2025-12-27", // 今回の旅行開始日（必要なら変更）
