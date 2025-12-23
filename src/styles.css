@@ -1,22 +1,25 @@
 :root{
-  --bg: #fff7f4;
-  --card: rgba(255,255,255,0.78);
-  --line: rgba(0,0,0,0.08);
-  --text: #2b2b2b;
-  --muted: rgba(0,0,0,0.55);
-  --accent: #d79aa0;
-  --accent2: #c9838a;
-  --shadow: 0 14px 40px rgba(0,0,0,0.10);
-  --radius: 22px;
+  --bg: #eef2f8;
+  --card: #ffffff;
+  --line: #e3e8f1;
+  --text: #1d2533;
+  --muted: #5b667a;
+  --accent: #3f6df6;
+  --accent2: #1f4dd8;
+  --accent-soft: rgba(63, 109, 246, 0.12);
+  --shadow: 0 16px 40px rgba(15, 25, 50, 0.12);
+  --radius: 20px;
 }
 
 *{ box-sizing: border-box; }
 html,body{ height: 100%; }
 body{
   margin: 0;
-  font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", "Yu Gothic", "Meiryo", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  font-family: "Noto Sans JP", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Hiragino Kaku Gothic ProN", "Yu Gothic", "Meiryo", Arial,
+    "Apple Color Emoji", "Segoe UI Emoji";
   color: var(--text);
-  background: var(--bg);
+  background: radial-gradient(circle at top, #f7f9ff 0%, var(--bg) 55%);
 }
 
 .app{ min-height: 100%; display: flex; flex-direction: column; }
@@ -24,23 +27,22 @@ body{
 .hero{
   background-size: cover;
   background-position: center;
-  padding: 28px 18px 16px;
+  padding: 32px 18px 18px;
 }
 .heroOverlay{
-  max-width: 1050px;
+  max-width: 1100px;
   margin: 0 auto;
-  background: rgba(255,255,255,0.60);
+  background: #ffffff;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: calc(var(--radius) + 6px);
   box-shadow: var(--shadow);
-  backdrop-filter: blur(10px);
-  padding: 18px;
+  padding: 22px;
 }
 
 .topRow{
   display: grid;
-  gap: 14px;
-  grid-template-columns: 56px 1fr 280px;
+  gap: 18px;
+  grid-template-columns: 64px 1fr 300px;
   align-items: center;
 }
 @media (max-width: 860px){
@@ -49,54 +51,64 @@ body{
 }
 
 .appIcon{
-  width: 56px; height: 56px;
-  border-radius: 16px;
-  box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+  width: 64px;
+  height: 64px;
+  border-radius: 18px;
+  box-shadow: 0 12px 28px rgba(63, 109, 246, 0.2);
 }
 
 .titles .title{
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 800;
+  letter-spacing: 0.02em;
 }
 .subtitle{
-  display: flex; align-items: center;
+  display: flex;
+  align-items: center;
   gap: 10px;
-  margin-top: 6px;
+  margin-top: 8px;
+  color: var(--muted);
 }
 .name{ font-weight: 700; }
-.heart{ color: var(--accent2); }
+.heart{ color: var(--accent); }
 
 .tripBox{
-  background: rgba(255,255,255,0.75);
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 12px;
+  background: #f6f8ff;
+  border: 1px solid #dfe6fb;
+  border-radius: 16px;
+  padding: 14px;
 }
 .label{ font-size: 12px; color: var(--muted); }
-.countdown{ margin-top: 8px; font-weight: 800; }
+.countdown{ margin-top: 8px; font-weight: 800; color: var(--accent2); }
 
 .nav{
-  display: flex; gap: 10px;
-  margin-top: 14px;
+  display: flex;
+  gap: 10px;
+  margin-top: 16px;
   flex-wrap: wrap;
 }
 .tab{
-  border: 1px solid var(--line);
-  background: rgba(255,255,255,0.65);
-  padding: 10px 12px;
+  border: 1px solid transparent;
+  background: #f1f4fb;
+  padding: 10px 16px;
   border-radius: 999px;
   cursor: pointer;
   font-weight: 700;
+  color: var(--muted);
+  transition: all 0.2s ease;
 }
 .tab.active{
-  background: linear-gradient(135deg, rgba(215,154,160,0.30), rgba(255,255,255,0.80));
-  border-color: rgba(215,154,160,0.55);
+  background: linear-gradient(135deg, rgba(63,109,246,0.2), rgba(255,255,255,0.95));
+  border-color: rgba(63,109,246,0.35);
+  color: var(--accent2);
+  box-shadow: 0 10px 18px rgba(63, 109, 246, 0.18);
 }
+.tab:hover{ color: var(--accent2); }
 
 .main{
-  max-width: 1050px;
-  margin: 16px auto 0;
-  padding: 0 18px 24px;
+  max-width: 1100px;
+  margin: 20px auto 0;
+  padding: 0 18px 28px;
   width: 100%;
   flex: 1;
 }
@@ -106,11 +118,12 @@ body{
   border: 1px solid var(--line);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
-  padding: 18px;
+  padding: 20px;
 }
 
 .scrapbook{
-  background-image: url("/travel-scrapbook.png");
+  background-image: linear-gradient(135deg, rgba(63,109,246,0.1), rgba(255,255,255,0.95)),
+    url("/travel-scrapbook.png");
   background-size: cover;
   background-position: center;
 }
@@ -129,20 +142,22 @@ p{ margin: 8px 0; }
   .grid2{ grid-template-columns: 1fr; }
 }
 .miniCard{
-  background: rgba(255,255,255,0.74);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 18px;
-  padding: 14px;
+  padding: 16px;
+  box-shadow: 0 8px 20px rgba(15, 25, 50, 0.08);
 }
 
 .list{ padding-left: 0; list-style: none; margin: 0; }
 .row{ display: flex; gap: 10px; align-items: center; padding: 6px 0; }
 .chip{
-  background: rgba(215,154,160,0.18);
-  border: 1px solid rgba(215,154,160,0.35);
-  padding: 2px 8px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(63, 109, 246, 0.25);
+  padding: 2px 10px;
   border-radius: 999px;
   font-size: 12px;
+  color: var(--accent2);
 }
 .done{ text-decoration: line-through; color: var(--muted); }
 
@@ -156,56 +171,63 @@ p{ margin: 8px 0; }
 
 .input, .textarea{
   border: 1px solid var(--line);
-  background: rgba(255,255,255,0.82);
+  background: #ffffff;
   border-radius: 14px;
   padding: 10px 12px;
   font-size: 14px;
   outline: none;
+  transition: border 0.2s ease, box-shadow 0.2s ease;
 }
 .input:focus, .textarea:focus{
-  border-color: rgba(215,154,160,0.55);
-  box-shadow: 0 0 0 4px rgba(215,154,160,0.18);
+  border-color: rgba(63, 109, 246, 0.55);
+  box-shadow: 0 0 0 4px rgba(63, 109, 246, 0.18);
 }
 .textarea{ width: 100%; min-height: 90px; resize: vertical; }
 .grow{ flex: 1; min-width: 240px; }
 
 .btn{
-  border: 1px solid rgba(215,154,160,0.45);
-  background: rgba(215,154,160,0.22);
-  padding: 10px 12px;
+  border: 1px solid rgba(63, 109, 246, 0.45);
+  background: linear-gradient(135deg, rgba(63, 109, 246, 0.2), rgba(255, 255, 255, 0.9));
+  padding: 10px 14px;
   border-radius: 14px;
   cursor: pointer;
   font-weight: 800;
+  color: var(--accent2);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .btn:hover{ filter: brightness(0.98); }
 .btn.ghost{
-  background: rgba(255,255,255,0.70);
+  background: #f7f9ff;
   border-color: var(--line);
+  color: var(--muted);
 }
 .btn.danger{
   background: rgba(230, 80, 90, 0.18);
   border-color: rgba(230, 80, 90, 0.40);
+  color: #b42318;
 }
 
 .table{ display:flex; flex-direction: column; gap: 10px; }
 .tableRow{
   display:flex; gap: 10px; align-items:center; flex-wrap: wrap;
-  background: rgba(255,255,255,0.70);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 16px;
-  padding: 10px;
+  padding: 12px;
+  box-shadow: 0 6px 16px rgba(15, 25, 50, 0.08);
 }
 .check{
   width: 26px; height: 26px;
   border-radius: 9px;
   border: 1px solid var(--line);
-  background: rgba(255,255,255,0.85);
+  background: #f8faff;
   cursor: pointer;
   font-weight: 900;
+  color: var(--accent2);
 }
 .check.on{
-  background: rgba(215,154,160,0.25);
-  border-color: rgba(215,154,160,0.55);
+  background: rgba(63, 109, 246, 0.2);
+  border-color: rgba(63, 109, 246, 0.45);
 }
 .time{ width: 120px; }
 .strike{ text-decoration: line-through; color: var(--muted); }
@@ -230,13 +252,14 @@ p{ margin: 8px 0; }
   .photoGrid{ grid-template-columns: 1fr; }
 }
 .photoCard{
-  background: rgba(255,255,255,0.76);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: 10px;
   display:flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: 0 8px 18px rgba(15, 25, 50, 0.08);
 }
 .photo{
   width: 100%;
@@ -248,18 +271,19 @@ p{ margin: 8px 0; }
 
 .stack{ display:flex; flex-direction: column; gap: 12px; margin-top: 12px; }
 .memoryCard{
-  background: rgba(255,255,255,0.72);
+  background: #ffffff;
   border: 1px solid var(--line);
   border-radius: 18px;
   padding: 12px;
   display:flex;
   flex-direction: column;
   gap: 8px;
+  box-shadow: 0 6px 16px rgba(15, 25, 50, 0.08);
 }
 
 .details{ margin-top: 12px; }
 .pre{
-  background: rgba(0,0,0,0.05);
+  background: #f5f7fb;
   border: 1px solid var(--line);
   border-radius: 14px;
   padding: 12px;
