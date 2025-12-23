@@ -48,7 +48,12 @@ body{
 .heroIcon{
   width: 28px;
   height: 28px;
-  border-radius: 8px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
   box-shadow: 0 6px 14px rgba(8, 24, 40, 0.25);
 }
 .heroTitle{

@@ -161,7 +161,9 @@ export default function App() {
           </button>
           <div className="heroTitleBlock">
             <div className="heroTitleRow">
-              <img className="heroIcon" src="/app-icon.png" alt="旅アイコン" />
+              <span className="heroIcon" role="img" aria-label="ヤシの木">
+                🌴
+              </span>
               <EditableText
                 value={state.appTitle}
                 placeholder="旅のタイトル"
@@ -195,6 +197,12 @@ export default function App() {
                 onChange={(v) => setState((s) => ({ ...s, partnerB: v }))}
                 className="name"
               />
+            </div>
+            <div className="syncStatus">
+              Trip ID: <b>{tripId}</b>{" "}
+              {syncStatus === "connecting" && "• 同期中…"}
+              {syncStatus === "ready" && "• 同期OK"}
+              {syncStatus === "error" && "• 同期エラー（キー/ポリシー確認）"}
             </div>
             <div className="syncStatus">
               Trip ID: <b>{tripId}</b>{" "}
