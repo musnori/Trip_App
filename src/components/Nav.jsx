@@ -4,8 +4,7 @@ const tabs = [
   { id: "home", label: "ホーム" },
   { id: "schedule", label: "予定" },
   { id: "photos", label: "写真" },
-  { id: "memories", label: "思い出" },
-  { id: "data", label: "データ" }
+  { id: "memories", label: "思い出" }
 ];
 
 export default function Nav({ page, setPage }) {
